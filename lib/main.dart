@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quiz_app/answer.dart';
 import 'package:flutter_quiz_app/quiz.dart';
+import 'package:flutter_quiz_app/result.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,14 +48,6 @@ class _MyAppState extends State<MyApp> {
                     questionIndex: _questionIndex,
                     answerQuestion: answerQuestion,
                   )
-                : Column(
-                    children: [
-                      Center(child: Text("You did it!")),
-                      Answer(
-                        answerText: "Try Again",
-                        onPressed: resetQuiz,
-                      )
-                    ],
-                  )));
+                : Result(resetQuiz: resetQuiz,)));
   }
 }
