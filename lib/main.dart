@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _questionIndex = 0;
 
-  static const questions = [
+  static const _questions = [
     {
       "questionText": "What is your favorite color?",
       "answers": ["Black", "Red", "Green", "White"]
@@ -40,12 +40,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var question =
-        _questionIndex < questions.length ? questions[_questionIndex] : null;
+        _questionIndex < _questions.length ? _questions[_questionIndex] : null;
 
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(title: Text("Simple Quiz App")),
-            body: _questionIndex < questions.length
+            body: _questionIndex < _questions.length
                 ? Column(
                     children: [
                       Question(question["questionText"]),
