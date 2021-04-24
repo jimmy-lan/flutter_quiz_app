@@ -14,33 +14,56 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _questionIndex = 0;
 
-  List<String> questions = [
-    "What is your favorite color?",
-    "What is your favorite animal?"
+  static const questions = [
+    {
+      "questionText": "What is your favorite color?",
+      "answers": ["Black", "Red", "Green", "White"]
+    },
+    {
+      "questionText": "What is your favorite animal?",
+      "answers": ["Rabbit", "Snake", "Elephant", "Lion"]
+    }
   ];
 
-  void answerQuestion () {
+  void answerQuestion() {
     setState(() {
-      if (_questionIndex < questions.length - 1) {
-        _questionIndex++;
-      }
+      _questionIndex++;
+    });
+  }
+
+  void resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var question =
+        _questionIndex < questions.length ? questions[_questionIndex] : null;
+
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(title: Text("Simple Quiz App")),
-            body: Column(
-              children: [
-                Question(questions[_questionIndex]),
-                Answer(answerText: "Answer 1", onPressed: answerQuestion,),
-                Answer(answerText: "Answer 2", onPressed: answerQuestion,),
-                Answer(answerText: "Answer 3", onPressed: answerQuestion,),
-              ],
-            )
-        )
-    );
+            body: _questionIndex < questions.length
+                ? Column(
+                    children: [
+                      Question(question["questionText"]),
+                      ...(question["answers"] as List<String>)
+                          .map((e) => Answer(
+                                answerText: e,
+                                onPressed: answerQuestion,
+                              ))
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Center(child: Text("You did it!")),
+                      Answer(
+                        answerText: "Try Again",
+                        onPressed: resetQuiz,
+                      )
+                    ],
+                  )));
   }
 }
