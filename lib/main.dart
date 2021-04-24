@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_app/answer.dart';
-import 'package:flutter_quiz_app/question.dart';
+import 'package:flutter_quiz_app/quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,22 +39,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var question =
-        _questionIndex < _questions.length ? _questions[_questionIndex] : null;
-
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(title: Text("Simple Quiz App")),
             body: _questionIndex < _questions.length
-                ? Column(
-                    children: [
-                      Question(question["questionText"]),
-                      ...(question["answers"] as List<String>)
-                          .map((e) => Answer(
-                                answerText: e,
-                                onPressed: answerQuestion,
-                              ))
-                    ],
+                ? Quiz(
+                    questions: _questions,
+                    questionIndex: _questionIndex,
+                    answerQuestion: answerQuestion,
                   )
                 : Column(
                     children: [
